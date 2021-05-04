@@ -12,16 +12,61 @@ For my moderation project, I decided to take **Lab 2: A Deck Class** from my Fal
 ----> Card 10: universal burn card, it can be played on top of anything and burns the Main Pile<br />
       -------> if you play 10, because the Main Pile is burned, you must then provide a second card to begin the new Main Pile<br />
 ----> Card 5: reverse card, meaning that the next card placed on the Main Pile must be equal to or lower than five<br />
-5. Here is the basic usage for this specific implementation:<br />
+5. The card values are ranked as follows: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
+6. Here is the basic usage for this specific implementation:<br />
 ----> Type p to play, d to draw, c to collect, h for help, and q to quit<br />
 ----> After typing p, you must type the card value (2, 6, jack, ace) to play that card<br />
-6. To play the game, run interactiveMode() by running main.swift without any arguments.
+7. To play the game, run interactiveMode() by running main.swift without any arguments.
 
 ### Comparing Implementations 
 #### Card and Deck
+The clearest overlap between Java and Swift is that a Card object is initialized almost identically. Here, I will show some of the differences in Card. In Java, a Card consists of a suit and value, with the suits represented as an enum and the values as an array of Strings. The Card Class also has a large amount of global variables, such as minVal and maxVal, which are supposed to assist with throwing exceptions and creating the deck. Both pieces of Card also require their own toString() and get methods, as shown below:
+```Java
+//get 
+    public Suit suit() { return suit; }  
+    public int value() { return value; } 
+//to string
+    public String getSuitString()
+    {
+	return suit.toString();
+    }
 
-#### Hand and Idiot
+    public String getValueString()
+    {
+	final String[] names = 
+	    {"ace","two","three","four","five","six","seven",
+	     "eight","nine","ten","jack","queen","king"};
+	return names[value - MINVAL];
+    }
+
+    public String toString() {
+	return "(" + getValueString() + ", " + getSuitString() + ")";
+    }
+    
+```
+In Swift, the Card class is represented as two enumerations, each conforming to **CustomStringConvertible** protocol. In Swift, any type which conforms to **CustomStringConvertible** provides its own representation to be used when converting an instance to a string, meaning there is no need for toString() methods. Below is the Card class's use of this protocol:
+```Swift
+var description: String{
+        switch thevalue{
+            case .JACK:
+                return ("Jack of \(thesuit)")
+            case .QUEEN:
+                return ("Queen of \(thesuit)")
+            case .KING:
+                return ("King of \(thesuit)")
+            case .ACE:
+                return ("Ace of \(thesuit)")
+            case .TWO, .THREE, .FOUR, .FIVE, .SIX, .SEVEN, .EIGHT, .NINE, .TEN:
+                return ("\(thevalue) of \(thesuit)")
+        }
+    }
+
+```
+
+
+
+#### Hand and User Interaction
 
 ### Goals going forward
-It is safe to say that the dealer you play against is quite dumb. As of now, it does not take the risk of drawing a card and it does not play the 10 or 2 cards when it is most beneficial to the game. In the future, I would like to improve the dealer so that it takes more risks with the cards it plays. Another issue is that the games take a very long time. This means a quicker game is ideal, and can be done my implementing a system where the player and dealer can play double cards, so if they have cards of the same value they can play them together in a single turn. In terms of the shortcomings of the program itself, there are also still a couple of glaring problems. Most troublesome is that there is no error handling outside of consoleIO, card, and deck. An improved implementation would require robust error handling in every class. Furthermore, there are two big bugs, the first one being that when collect() relies too heavily on the Game Deck having cards. When collect() is called and the player/dealer collects the cards from the Main Pile, the card which restarts the Main Pile is drawn from the deck. This means that once the deck is gutted, there is no system in place to restart the Main Pile. Secondly, in Hand's getMinCardSet(), the min(by:) instance method included in any Swift Set will occasionally returns a nil value. I have been unable to find the source of this, and have created the fallback variable to make sure the game keeps going, but does not take care of the problem. Finally, I still have to implement a way for the player to access the Face Down portion of their hand. While this can be  done by checking for the user to input "facedown", check that this portion still has cards, and play one of them randomly, I have been more occupied with handling the previous errors, but I recognize that this piece is integral.
+It is safe to say that the dealer you play against is quite dumb. As of now, it does not take the risk of drawing a card and it does not play the 10 or 2 cards when it is most beneficial to the game. In the future, I would like to improve the dealer so that it takes more risks with the cards it plays. Another issue is that the games take a very long time. This means a quicker game is ideal, and can be done my implementing a system where the player and dealer can play double cards, so if they have cards of the same value they can play them together in a single turn. In terms of the shortcomings of the program itself, there are also still a couple of glaring problems. Most troublesome is that there is no error handling outside of consoleIO and deck. An improved implementation would require robust error handling in every class. Furthermore, there are two big bugs, the first one being that when collect() relies too heavily on the Game Deck having cards. When collect() is called and the player/dealer collects the cards from the Main Pile, the card which restarts the Main Pile is drawn from the deck. This means that once the deck is gutted, there is no system in place to restart the Main Pile. Secondly, in Hand's getMinCardSet(), the min(by:) instance method included in any Swift Set will occasionally returns a nil value. I have been unable to find the source of this, and have created the fallback variable to make sure the game keeps going, but does not take care of the problem. Finally, I still have to implement a way for the player to access the Face Down portion of their hand. While this can be  done by checking for the user to input "facedown", check that this portion still has cards, and play one of them randomly, I have been more occupied with handling the previous errors, but I recognize that this piece is integral.
 
