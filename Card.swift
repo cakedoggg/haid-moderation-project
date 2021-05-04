@@ -7,10 +7,6 @@ import Foundation
 
 struct Card: CustomStringConvertible, Hashable {
 
-    enum CardError: Error{
-        case invalidCardValue(OutofRange: String, Val: Int)
-    }
-    
     enum Suit: String, CaseIterable, CustomStringConvertible {
         case SPADES = "♤", HEARTS = "♡", CLUBS = "♧", DIAMONDS = "♢"
         
@@ -34,6 +30,7 @@ struct Card: CustomStringConvertible, Hashable {
         self.thevalue = thevalue
     }
     
+    //tests if the value of the given card is equal to the given value
     func sameVal(a: Card.Value, input: Int) -> Bool{
         if(a.rawValue == input) {
             return true
@@ -41,12 +38,12 @@ struct Card: CustomStringConvertible, Hashable {
         return false
     }
     
+    //tests if two cards have the same value
     func sameCardVal(a: Card, b: Card) -> Bool{
         return (a.thevalue == b.thevalue)
     }
     
-    //compares cards
-    //returns true if the test card is greater than or equal to the second card
+    //compares cards, returns true if the test card is greater than or equal to card b
     func greaterCardVal(test: Card, b: Card) -> Bool {
         if(test.thevalue.rawValue >= b.thevalue.rawValue){
             return true
@@ -54,8 +51,7 @@ struct Card: CustomStringConvertible, Hashable {
         return false
     }
     
-    //compares card values
-    //returns true if given value is greater than given test card's value
+    //compares card values, returns true if the given value is greater than given test card's value
     func greaterVal(test: Card, input: Int) -> Bool{
         if(test.thevalue.rawValue <= input){ 
             return true
