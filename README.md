@@ -16,7 +16,11 @@ For my moderation project, I decided to take **Lab 2: A Deck Class** from my Fal
 ----> Type p to play, d to draw, c to collect, h for help, and q to quit<br />
 ----> After typing p, you must type the card value (2, 6, jack, ace) to play that card<br />
 
+### Design Choices and Comparing Implementations 
+#### Card and Deck
+
+#### Hand and Idiot
+
 ### Goals going forward
 It is safe to say that the dealer you play against is quite dumb. As of now, it does not take the risk of drawing a card and it does not play the 10 or 2 cards when it is most beneficial to the game. In the future, I would like to improve the dealer so that it takes more risks with the cards it plays. Another issue is that the games take a very long time. This means a quicker game is ideal, and can be done my implementing a system where the player and dealer can play double cards, so if they have cards of the same value they can play them together in a single turn. In terms of the shortcomings of the program itself, there are also still a couple of glaring problems. Most troublesome is that there is no error handling outside of consoleIO, card, and deck. An improved implementation would require robust error handling in every class. Furthermore, there are two big bugs, the first one being that when collect() relies too heavily on the Game Deck having cards. When collect() is called and the player/dealer collects the cards from the Main Pile, the card which restarts the Main Pile is drawn from the deck. This means that once the deck is gutted, there is no system in place to restart the Main Pile. Secondly, in Hand's getMinCardSet(), the min(by:) instance method included in any Swift Set will occasionally returns a nil value. I have been unable to find the source of this, and have created the fallback variable to make sure the game keeps going, but does not take care of the problem. Finally, I still have to implement a way for the player to access the Face Down portion of their hand. While this can be  done by checking for the user to input "facedown", check that this portion still has cards, and play one of them randomly, I have been more occupied with handling the previous errors, but I recognize that this piece is integral.
-
 
