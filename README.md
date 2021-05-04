@@ -15,8 +15,9 @@ For my moderation project, I decided to take **Lab 2: A Deck Class** from my Fal
 5. Here is the basic usage for this specific implementation:<br />
 ----> Type p to play, d to draw, c to collect, h for help, and q to quit<br />
 ----> After typing p, you must type the card value (2, 6, jack, ace) to play that card<br />
+6. To play the game, run interactiveMode() by running main.swift without any arguments.
 
-### Design Choices and Comparing Implementations 
+### Comparing Implementations 
 #### Card and Deck
 
 #### Hand and Idiot
