@@ -115,10 +115,34 @@ The shuffle algorithms in each language are almost identical in form, but what c
 ```
 
 ### Hand and User Interaction
-Here I will explain a few of the functions in the Hand and Idiot classes to make the implementation clear. A Hand is made up of 3 sets, hand, faceDown, and faceUp. When a hand is initialized, it fills each portion of the Hand with 3 cards. I chose to make them sets and not arrays because their order does not matter, and since they are being looked at/modified a lot I figured that a constant (O(1)) lookup time is worth it.
-----> add() receives a card and inserts it into hand portion (straightforward because the portions faceDown and faceUp cannot be added to)
----->
-
+Here I will explain a few of the functions in the Hand and Idiot classes to make the implementation clear. A Hand is made up of 3 sets, hand, faceDown, and faceUp. When a hand is initialized, it fills each portion of the Hand with 3 cards. I chose to make them sets and not arrays because their order does not matter, and since they are being looked at/modified a lot I figured that a constant (O(1)) lookup time is worth it. 
+	**Hand**
+----> ```findCard(value: Int, set: Set<Card>)```  <br />
+-------> returns the first card it finds which in given set that has a Card value matching the given value <br />
+----> ```mutating func legalMove(val: Int) -> Card?```  <br />
+-------> finds Card with a Card value matching the given value in appropriate portion of the Hand and returns it <br />
+----> ```mutating func getHiCards(h: Hand, top: Card) -> (hiSet: Set<Card>?, msg: String)``` <br />
+-------> from the appropriate portion of the Hand, it creates a subset of Cards with values greater than that of the top of the Main Pile, returns this subset and a message designating which portion the subset comes from <br />
+----> ```mutating func getMinCards(h: Hand) -> (minSet: Set<Card>?, msg: String)``` <br />
+-------> from the appropriate portion of the Hand, it creates a subset of cards <= 5, returns this subset and a message indicating which portion the subset comes from <br />
+----> ```mutating func getMinCardHand(h: Hand) -> (low: Card?, msg:String)```<br />
+-------> from the appropriate portion of the Hand, returns the lowest Card and message indicating which portion the Card comes from <br />
+----> ```mutating func getMinCardSet(set: Set<Card>) -> Card```<br />
+-------> returns the lowest Card in a given set <br />
+	
+	**Idiot**
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
+----> <br />
 
 ### Goals going forward
 It is safe to say that the dealer you play against is quite dumb. As of now, it does not take the risk of drawing a card and it does not play the 10 or 2 cards when it is most beneficial to the game. In the future, I would like to improve the dealer so that it takes more risks with the cards it plays. Another issue is that the games take a very long time. This means a quicker game is ideal, and can be done my implementing a system where the player and dealer can play double cards, so if they have cards of the same value they can play them together in a single turn. In terms of the shortcomings of the program itself, there are also still a couple of glaring problems. Most troublesome is that there is no error handling outside of consoleIO and deck. An improved implementation would require robust error handling in every class. Furthermore, there are two big bugs, the first one being that when collect() relies too heavily on the Game Deck having cards. When collect() is called and the player/dealer collects the cards from the Main Pile, the card which restarts the Main Pile is drawn from the deck. This means that once the deck is gutted, there is no system in place to restart the Main Pile. Secondly, in Hand's getMinCardSet(), the min(by:) instance method included in any Swift Set will occasionally returns a nil value. I have been unable to find the source of this, and have created the fallback variable to make sure the game keeps going, but does not take care of the problem. Finally, I still have to implement a way for the player to access the Face Down portion of their hand. While this can be  done by checking for the user to input "facedown", check that this portion still has cards, and play one of them randomly, I have been more occupied with handling the previous errors, but I recognize that this piece is integral.
