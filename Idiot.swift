@@ -422,16 +422,7 @@ public class Idiot{
     func getMove(_ move: String) -> (move: moveType, value: String) {
         return (moveType(value: move), move)
     }
-    
-    //
-    func checkMove(playedCard: Card, check: Card) -> Bool{
-        //played card must be greater than or equal to top of pile
-        if(playedCard.greaterCardVal(test: playedCard, b: check)){
-            return true
-        }
-        return false
-    }
-    
+        
     func drawCard(who: Int) -> Card {
         precondition(!(gameDeck.empty()))
         let c = try! gameDeck.dealCard()
