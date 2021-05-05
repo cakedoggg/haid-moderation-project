@@ -44,7 +44,7 @@ The clearest overlap between Java and Swift is that a Card object is initialized
     }
     
 ```
-In Swift, the Card class is represented as two enumerations, each conforming to **CustomStringConvertible** protocol. In Swift, any type which conforms to **CustomStringConvertible** provides its own representation to be used when converting an instance to a string, meaning there is no need for toString() methods. Below is the Card class's use of this protocol:
+In Swift, the Card class is represented as two enumerations, each conforming to **CustomStringConvertible** protocol. In Swift, any type which conforms to **CustomStringConvertible** provides its own representation to be used when converting an instance to a string, meaning there is no need for toString() methods, and an instance variable **description** is used instead. Below is the Card class's use of this protocol:
 ```Swift
 var description: String{
         switch thevalue{
@@ -62,7 +62,57 @@ var description: String{
     }
 
 ```
+Moving on to Deck, you can see that the difference in error handling is also worth nothing. Let's look at dealCard(). In this implementation, dealCard() borrrows from Java's Stack class and throws an exception.
+```Java
+public Card dealCard(){
+  if (deck.empty())
+      throw new RuntimeException("Deck is empty.");
+  discard.push(deck.pop());
+  return discard.peek();
+}
+```
+In Swift, however, I implemented Deck as an array of Cards, and not a stack. I later did create my own Stack class, but I only used this to create the Main Pile which played cards are pushed onto. Going back to my original point, Error handling is swift can be very simple, especially if you take advantage of the **guard** keyword, which traps invalid parameters from being passed to a method.
+```Swift
+func dealCard() throws -> Card  {
+        guard numDealt < Deck.count-1 else{
+            throw DeckError.NoSuchElementException(msg: "Cannot deal card because there are no more cards in the deck.")
+        }
+        numDealt += 1
+        return self.Deck[numDealt]
+    }
+```
 
+In Java, I implemented the Fisher-Yates algorithm to shuffle the deck. 
+```Java
+    public void shuffle() {
+    Card temp; //used as a temp to store value in order to swap 2 cards
+    int j; //used to store randomly generated number
+    for(int i = deck.length-1; i >= 0; i--) //
+    {
+        j = rand.nextInt(i+1); //generates random number between 0 and 52
+        temp = deck[i]; //temp = a
+        deck[i] =  deck[j];//a = b
+        deck[j] = temp;//b = temp
+    	}
+    }
+```
+The shuffle algorithms in each language are almost identical in form, but what caught my attention in the Swift version was how the reversed for loop and random number generator work. Java requires you to import java.util.Random in order to make use of the Random class. Swift, on the other hand, uses a native function to generate random numbers, but up until last year it used the imported C function arc4random().
+```Swift
+    func shuffle(){
+        var temp: Card
+        var i = 0
+        var rand: Int
+        
+        for _ in Deck.reversed(){
+            rand = Int.random(in: 0...51)
+            temp = Deck[i]
+            Deck[i] = Deck[rand]
+            Deck[rand] = temp
+            i += 1
+        }
+    }
+
+```
 
 
 #### Hand and User Interaction
