@@ -115,7 +115,9 @@ The shuffle algorithms in each language are almost identical in form, but what c
 ```
 
 ### Hand and User Interaction
-Here I will explain a few of the functions in the Hand and Idiot classes to make the implementation clear.
+Here I will explain a few of the functions in the Hand and Idiot classes to make the implementation clear. A Hand is made up of 3 sets, hand, faceDown, and faceUp. When a hand is initialized, it fills each portion of the Hand with 3 cards. I chose to make them sets and not arrays because their order does not matter, and since they are being looked at/modified a lot I figured that a constant (O(1)) lookup time is worth it.
+----> add() receives a card and inserts it into hand portion (straightforward because the portions faceDown and faceUp cannot be added to)
+---->
 
 
 ### Goals going forward
