@@ -71,7 +71,7 @@ public Card dealCard(){
   return discard.peek();
 }
 ```
-In Swift, however, I implemented Deck as an array of Cards, and not a stack. I later did create my own Stack class, but I only used this to create the Main Pile which played cards are pushed onto. Going back to my original point, Error handling is swift can be very simple, especially if you take advantage of the **guard** keyword, which traps invalid parameters from being passed to a method.
+In Swift, however, I implemented Deck as an array of Cards, and not a stack. I later did create my own Stack class, but I only used this to create the Main Pile which played cards are pushed onto. Going back to my original point, error handling is Swift can be very simple, especially if you take advantage of the **guard** keyword, which traps invalid parameters from being passed to a method.
 ```Swift
 func dealCard() throws -> Card  {
         guard numDealt < Deck.count-1 else{
@@ -96,7 +96,7 @@ In Java, I implemented the Fisher-Yates algorithm to shuffle the deck.
     	}
     }
 ```
-The shuffle algorithms in each language are almost identical in form, but what caught my attention in the Swift version was how the reversed for loop and random number generator work. Java requires you to import java.util.Random in order to make use of the Random class. Swift, on the other hand, uses a native function to generate random numbers, but up until last year it used the imported C function arc4random().
+The shuffle algorithms in each language are almost identical in form, but what caught my attention in the Swift version was how the reversed for loop and random number generator work. Java requires you to import java.util.Random in order to make use of the Random class. Swift, on the other hand, uses a native function to generate random numbers, but up until last year it used the imported C function arc4random(). Because for loops in Swift are silly, my workaround for iterating over the Deck from n-1 to 1 was to iterate over a reversed Deck by using the function reversed(). 
 ```Swift
     func shuffle(){
         var temp: Card
@@ -113,7 +113,6 @@ The shuffle algorithms in each language are almost identical in form, but what c
     }
 
 ```
-
 
 #### Hand and User Interaction
 
