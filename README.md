@@ -1,7 +1,7 @@
 # Moderation Project
 ### From Java to Swift
 
-For my moderation project, I decided to take **Lab 2: A Deck Class** from my Fall 2019 _Data Structures_ class and recreate it in Swift. I decided on Swift because it is the most recent language I have learned. In Fall of 2020, I participated in the class _Design of Programming Languages_, which culminated a final project where my lab partner and I created a scheme interpreter in Swift. **Lab 2: A Deck Class** helped form the basis of my understanding object-oriented programming, with an extended lab assignment that had us use a Fisher-Yates algorithm to shuffle the deck and simulate a game of blackjack. I recreated the card, deck, and hand in Swift, but thought to change up the game, so here I have a simulation of the card game Idiot. My implementation of Idiot is unique, so here I would like to specify my game rules.
+For my moderation project, I decided to take **Lab 2: A Deck Class** from my Fall 2019 _Data Structures_ class and recreate it in Swift. I decided on Swift because it is the most recent language I have learned. In Fall of 2020, I participated in the class _Design of Programming Languages_, which culminated a final project where my lab partner and I created a scheme interpreter in Swift. **Lab 2: A Deck Class** helped form the basis of my understanding object-oriented programming, with an extended lab assignment that had us use a Fisher-Yates algorithm to shuffle the deck and simulate a game of blackjack. I recreated the card and deck in Swift, but thought to change up the game, so here I have a simulation of the card game Idiot. My implementation of Idiot is unique, so here I would like to specify my game rules.
 
 ### Idiot
 1. The purpose of this game is to lose all your cards by putting them on the Main Pile.
@@ -114,7 +114,9 @@ The shuffle algorithms in each language are almost identical in form, but what c
 
 ```
 
-#### Hand and User Interaction
+### Hand and User Interaction
+Here I will explain a few of the functions in the Hand and Idiot classes to make the implementation clear.
+
 
 ### Goals going forward
 It is safe to say that the dealer you play against is quite dumb. As of now, it does not take the risk of drawing a card and it does not play the 10 or 2 cards when it is most beneficial to the game. In the future, I would like to improve the dealer so that it takes more risks with the cards it plays. Another issue is that the games take a very long time. This means a quicker game is ideal, and can be done my implementing a system where the player and dealer can play double cards, so if they have cards of the same value they can play them together in a single turn. In terms of the shortcomings of the program itself, there are also still a couple of glaring problems. Most troublesome is that there is no error handling outside of consoleIO and deck. An improved implementation would require robust error handling in every class. Furthermore, there are two big bugs, the first one being that when collect() relies too heavily on the Game Deck having cards. When collect() is called and the player/dealer collects the cards from the Main Pile, the card which restarts the Main Pile is drawn from the deck. This means that once the deck is gutted, there is no system in place to restart the Main Pile. Secondly, in Hand's getMinCardSet(), the min(by:) instance method included in any Swift Set will occasionally returns a nil value. I have been unable to find the source of this, and have created the fallback variable to make sure the game keeps going, but does not take care of the problem. Finally, I still have to implement a way for the player to access the Face Down portion of their hand. While this can be  done by checking for the user to input "facedown", check that this portion still has cards, and play one of them randomly, I have been more occupied with handling the previous errors, but I recognize that this piece is integral.
